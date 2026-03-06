@@ -4,8 +4,10 @@ import {
     Text,
     StyleSheet,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity,
+    SafeAreaView
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { colors } from '../theme/colors';
 
 // Internal Components
@@ -16,146 +18,165 @@ import { IconButton } from '../components/IconButton';
 import { BottomNavigation } from '../components/BottomNavigation';
 
 export const DashboardScreen = () => {
+    const navigation = useNavigation<any>();
+
     return (
-        <View style={styles.container}>
-            {/* Dashboard Header */}
-            <View style={styles.dashHeader}>
-                <View>
-                    <Text style={styles.dashGreeting}>Good morning,</Text>
-                    <Text style={styles.dashName}>Swayam! 👋</Text>
-                    <Text style={styles.dashSub}>here's your health snapshot for today!</Text>
-                </View>
-                <View style={styles.dashAvatar}>
-                    <Text style={styles.avatarText}>S</Text>
-                </View>
-            </View>
-
-            <ScrollView
-                contentContainerStyle={styles.scrollContent}
-                showsVerticalScrollIndicator={false}
-            >
-                {/* Main Card: Health Score */}
-                <Card variant="dark" style={styles.scoreCard}>
-                    <Text style={styles.scoreLbl}>Today's Health Score</Text>
-                    <View style={styles.scoreRow}>
-                        <Text style={styles.scoreNum}>74</Text>
-                        <View style={styles.scoreRight}>
-                            <Text style={styles.scoreMax}>/100</Text>
-                            <View style={styles.scoreBadge}>
-                                <Text style={styles.scoreBadgeText}>Good</Text>
-                            </View>
-                        </View>
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                {/* Dashboard Header */}
+                <View style={styles.dashHeader}>
+                    <View>
+                        <Text style={styles.dashGreeting}>Good morning,</Text>
+                        <Text style={styles.dashName}>Swayam! 👋</Text>
+                        <Text style={styles.dashSub}>here's your health snapshot for today!</Text>
                     </View>
-                    <ProgressBar progress={0.74} color={colors.accent} />
-                    <Text style={styles.scoreBreakdown}>💪 Workout 32 · 🥗 Nutrition 28 · 😴 Sleep 14</Text>
-                </Card>
-
-                {/* Horizontal Stats Section */}
-                <View style={styles.sectionRow}>
-                    <Text style={styles.sectionLbl}>Today's stats</Text>
-                    <Text style={styles.sectionMore}>View more</Text>
+                    <View style={styles.dashAvatar}>
+                        <Text style={styles.avatarText}>S</Text>
+                    </View>
                 </View>
 
                 <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    style={styles.statsScroll}
-                    contentContainerStyle={styles.statsScrollContent}
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}
                 >
-                    <StatCard variant="orange" icon="💪" value="Done" unit="✅" label="Workout" />
-                    <StatCard icon="🥗" value="1,840" unit="/2,200 kcal" label="Calories" />
-                    <StatCard icon="😴" value="7.5" unit="hours" label="Sleep" />
-                    <StatCard icon="🔥" value="4" unit="days" label="Streak" />
+                    {/* Main Card: Health Score */}
+                    <Card variant="dark" style={styles.scoreCard}>
+                        <Text style={styles.scoreLbl}>Today's Health Score</Text>
+                        <View style={styles.scoreRow}>
+                            <Text style={styles.scoreNum}>74</Text>
+                            <View style={styles.scoreRight}>
+                                <Text style={styles.scoreMax}>/100</Text>
+                                <View style={styles.scoreBadge}>
+                                    <Text style={styles.scoreBadgeText}>Good</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <ProgressBar progress={0.74} color={colors.accent} />
+                        <Text style={styles.scoreBreakdown}>💪 Workout 32 · 🥗 Nutrition 28 · 😴 Sleep 14</Text>
+                    </Card>
+
+                    {/* Horizontal Stats Section */}
+                    <View style={styles.sectionRow}>
+                        <Text style={styles.sectionLbl}>Today's stats</Text>
+                        <Text style={styles.sectionMore}>View more</Text>
+                    </View>
+
+                    <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        style={styles.statsScroll}
+                        contentContainerStyle={styles.statsScrollContent}
+                    >
+                        <StatCard variant="orange" icon="💪" value="Done" unit="✅" label="Workout" />
+                        <StatCard icon="🥗" value="1,840" unit="/2,200 kcal" label="Calories" />
+                        <StatCard icon="😴" value="7.5" unit="hours" label="Sleep" />
+                        <StatCard icon="🔥" value="4" unit="days" label="Streak" />
+                    </ScrollView>
+
+                    {/* Weekly Progress Card */}
+                    <View style={styles.sectionRow}>
+                        <Text style={styles.sectionLbl}>This week's progress</Text>
+                    </View>
+                    <Card style={styles.progressCard}>
+                        <Text style={styles.progTitle}>Weekly Goals</Text>
+
+                        <View style={styles.progRow}>
+                            <Text style={styles.progLabel}>Workouts</Text>
+                            <View style={styles.progBarWrap}>
+                                <ProgressBar progress={0.6} color={colors.primary} backgroundColor={colors.background} height={6} />
+                            </View>
+                            <Text style={styles.progValPrimary}>3/5</Text>
+                        </View>
+
+                        <View style={styles.progRow}>
+                            <Text style={styles.progLabel}>Calories</Text>
+                            <View style={styles.progBarWrap}>
+                                <ProgressBar progress={0.8} color={colors.accent} backgroundColor={colors.background} height={6} />
+                            </View>
+                            <Text style={styles.progValAccent}>80%</Text>
+                        </View>
+
+                        <View style={styles.progRow}>
+                            <Text style={styles.progLabel}>Sleep</Text>
+                            <View style={styles.progBarWrap}>
+                                <ProgressBar progress={0.9} color={colors.primary} backgroundColor={colors.background} height={6} />
+                            </View>
+                            <Text style={styles.progValPrimary}>90%</Text>
+                        </View>
+
+                        <View style={[styles.progRow, { marginBottom: 0 }]}>
+                            <Text style={styles.progLabel}>Score avg</Text>
+                            <View style={styles.progBarWrap}>
+                                <ProgressBar progress={0.74} color={colors.primary} backgroundColor={colors.background} height={6} />
+                            </View>
+                            <Text style={styles.progValPrimary}>74</Text>
+                        </View>
+                    </Card>
+
+                    {/* Workout Suggestion Card */}
+                    <View style={styles.sectionRow}>
+                        <Text style={styles.sectionLbl}>Today's workout</Text>
+                        <Text style={styles.sectionMore}>View more</Text>
+                    </View>
+
+                    <View style={styles.suggestionCard}>
+                        <View style={styles.sugLeft}>
+                            <Text style={styles.sugTitle}>Push Day</Text>
+                            <Text style={styles.sugSub}>Chest & Shoulders</Text>
+                            <View style={styles.sugTags}>
+                                <View style={styles.sugTag}><Text style={styles.tagText}>💪 6 exercises</Text></View>
+                                <View style={styles.sugTag}><Text style={styles.tagText}>🔥 350 Cal</Text></View>
+                            </View>
+                        </View>
+                        <IconButton icon="▶" variant="accent" size={38} />
+                    </View>
+
+                    {/* Quick Actions Grid */}
+                    <View style={styles.sectionRow}>
+                        <Text style={styles.sectionLbl}>Quick log</Text>
+                    </View>
+                    <View style={styles.quickGrid}>
+                        <TouchableOpacity
+                            style={styles.quickCard}
+                            onPress={() => navigation.navigate('LogWorkout')}
+                            activeOpacity={0.7}
+                        >
+                            <View style={[styles.quickIconContainer, { backgroundColor: '#F0FDFA' }]}>
+                                <Text style={styles.quickIcon}>💪</Text>
+                            </View>
+                            <Text style={styles.quickLbl}>Log Workout</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.quickCard} activeOpacity={0.7}>
+                            <View style={[styles.quickIconContainer, { backgroundColor: '#FEF2F2' }]}>
+                                <Text style={styles.quickIcon}>🥗</Text>
+                            </View>
+                            <Text style={styles.quickLbl}>Log Meal</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.quickCard} activeOpacity={0.7}>
+                            <View style={[styles.quickIconContainer, { backgroundColor: '#F5F3FF' }]}>
+                                <Text style={styles.quickIcon}>😴</Text>
+                            </View>
+                            <Text style={styles.quickLbl}>Log Sleep</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.quickCard} activeOpacity={0.7}>
+                            <View style={[styles.quickIconContainer, { backgroundColor: '#FFF7ED' }]}>
+                                <Text style={styles.quickIcon}>📊</Text>
+                            </View>
+                            <Text style={styles.quickLbl}>My BMI</Text>
+                        </TouchableOpacity>
+                    </View>
+
                 </ScrollView>
-
-                {/* Weekly Progress Card */}
-                <View style={styles.sectionRow}>
-                    <Text style={styles.sectionLbl}>This week's progress</Text>
-                </View>
-                <Card style={styles.progressCard}>
-                    <Text style={styles.progTitle}>Weekly Goals</Text>
-
-                    <View style={styles.progRow}>
-                        <Text style={styles.progLabel}>Workouts</Text>
-                        <View style={styles.progBarWrap}>
-                            <ProgressBar progress={0.6} color={colors.primary} backgroundColor={colors.background} height={6} />
-                        </View>
-                        <Text style={styles.progValPrimary}>3/5</Text>
-                    </View>
-
-                    <View style={styles.progRow}>
-                        <Text style={styles.progLabel}>Calories</Text>
-                        <View style={styles.progBarWrap}>
-                            <ProgressBar progress={0.8} color={colors.accent} backgroundColor={colors.background} height={6} />
-                        </View>
-                        <Text style={styles.progValAccent}>80%</Text>
-                    </View>
-
-                    <View style={styles.progRow}>
-                        <Text style={styles.progLabel}>Sleep</Text>
-                        <View style={styles.progBarWrap}>
-                            <ProgressBar progress={0.9} color={colors.primary} backgroundColor={colors.background} height={6} />
-                        </View>
-                        <Text style={styles.progValPrimary}>90%</Text>
-                    </View>
-
-                    <View style={[styles.progRow, { marginBottom: 0 }]}>
-                        <Text style={styles.progLabel}>Score avg</Text>
-                        <View style={styles.progBarWrap}>
-                            <ProgressBar progress={0.74} color={colors.primary} backgroundColor={colors.background} height={6} />
-                        </View>
-                        <Text style={styles.progValPrimary}>74</Text>
-                    </View>
-                </Card>
-
-                {/* Workout Suggestion Card */}
-                <View style={styles.sectionRow}>
-                    <Text style={styles.sectionLbl}>Today's workout</Text>
-                    <Text style={styles.sectionMore}>View more</Text>
-                </View>
-
-                <View style={styles.suggestionCard}>
-                    <View style={styles.sugLeft}>
-                        <Text style={styles.sugTitle}>Push Day</Text>
-                        <Text style={styles.sugSub}>Chest & Shoulders</Text>
-                        <View style={styles.sugTags}>
-                            <View style={styles.sugTag}><Text style={styles.tagText}>💪 6 exercises</Text></View>
-                            <View style={styles.sugTag}><Text style={styles.tagText}>🔥 350 Cal</Text></View>
-                        </View>
-                    </View>
-                    <IconButton icon="▶" variant="accent" size={38} />
-                </View>
-
-                {/* Quick Actions Grid */}
-                <View style={styles.sectionRow}>
-                    <Text style={styles.sectionLbl}>Quick log</Text>
-                </View>
-                <View style={styles.quickGrid}>
-                    <TouchableOpacity style={styles.quickCard}>
-                        <Text style={styles.quickIcon}>💪</Text>
-                        <Text style={styles.quickLbl}>Log Workout</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.quickCard}>
-                        <Text style={styles.quickIcon}>🥗</Text>
-                        <Text style={styles.quickLbl}>Log Meal</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.quickCard}>
-                        <Text style={styles.quickIcon}>😴</Text>
-                        <Text style={styles.quickLbl}>Log Sleep</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.quickCard}>
-                        <Text style={styles.quickIcon}>📊</Text>
-                        <Text style={styles.quickLbl}>My BMI</Text>
-                    </TouchableOpacity>
-                </View>
-
-            </ScrollView>
-
-        </View>
+            </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: colors.background,
+    },
     container: {
         flex: 1,
         backgroundColor: colors.background,
@@ -163,7 +184,7 @@ const styles = StyleSheet.create({
 
     // Header
     dashHeader: {
-        paddingTop: 56, // Extra padding for safe area since using absolute bottom nav
+        paddingTop: 16,
         paddingHorizontal: 18,
         paddingBottom: 16,
         flexDirection: 'row',
@@ -376,17 +397,29 @@ const styles = StyleSheet.create({
     },
     quickCard: {
         backgroundColor: colors.white,
-        borderRadius: 16,
-        padding: 14,
-        width: '48%',
-        marginBottom: 4,
+        borderRadius: 20,
+        padding: 16,
+        width: '47%',
+        marginBottom: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.05,
+        shadowRadius: 10,
+        elevation: 2,
+    },
+    quickIconContainer: {
+        width: 44,
+        height: 44,
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 12,
     },
     quickIcon: {
-        fontSize: 24,
-        marginBottom: 6,
+        fontSize: 20,
     },
     quickLbl: {
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: '700',
         color: colors.textDark,
     },

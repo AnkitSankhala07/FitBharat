@@ -1,9 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { colors } from '../theme/colors';
 
 export const SplashScreen = () => {
+    const navigation = useNavigation<any>();
     const scale = useRef(new Animated.Value(0)).current;
+
     const dotWidths = [
         useRef(new Animated.Value(6)).current,
         useRef(new Animated.Value(6)).current,
@@ -24,7 +27,7 @@ export const SplashScreen = () => {
             useNativeDriver: true,
         }).start();
 
-        // 2. Loading dots animation (replicating the CSS pulse effect)
+        // 2. Loading dots animation
         const animateDot = (index: number, delay: number) => {
             const loop = Animated.loop(
                 Animated.sequence([
@@ -34,7 +37,7 @@ export const SplashScreen = () => {
                             duration: 400,
                             delay,
                             easing: Easing.inOut(Easing.ease),
-                            useNativeDriver: false, // width doesn't support native driver
+                            useNativeDriver: false,
                         }),
                         Animated.timing(dotOpacities[index], {
                             toValue: 1,
@@ -68,16 +71,22 @@ export const SplashScreen = () => {
         const anim1 = animateDot(1, 200);
         const anim2 = animateDot(2, 400);
 
+        // 3. Navigation transition after splash
+        const timer = setTimeout(() => {
+            navigation.replace('Login');
+        }, 2000);
+
         return () => {
             anim0.stop();
             anim1.stop();
             anim2.stop();
+            clearTimeout(timer);
         };
-    }, [scale, dotWidths, dotOpacities]);
+    }, []);
 
     return (
         <View style={styles.container}>
-            {/* Background Blobs (same proportions and positions as HTML design) */}
+            {/* Background Blobs */}
             <View style={styles.blob1} />
             <View style={styles.blob2} />
             <View style={styles.blob3} />
@@ -125,8 +134,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         position: 'relative',
     },
-
-    // Organic Background Blobs
     blob1: {
         position: 'absolute',
         top: -40,
@@ -157,8 +164,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.accent,
         opacity: 0.15,
     },
-
-    // Logo Cluster
     logoWrap: {
         shadowColor: colors.primary,
         shadowOffset: { width: 0, height: 16 },
@@ -199,8 +204,6 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderColor: colors.background,
     },
-
-    // Typography
     appName: {
         fontSize: 36,
         fontWeight: '800',
@@ -218,14 +221,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         lineHeight: 18,
     },
-
-    // Loading Dots
     dotsContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 6,
         marginTop: 48,
-        height: 6, // fixed height to keep them aligned while expanding
+        height: 6,
     },
     loadingDot: {
         height: 6,

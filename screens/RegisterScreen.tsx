@@ -49,7 +49,7 @@ export const RegisterScreen = ({ navigation }: RegisterScreenProps) => {
 
     const handleRegister = () => {
         // Navigate to Dashboard after registering
-        navigation.navigate('Splash'); // Routing to Dashboard will happen later
+        navigation.navigate('Main');
         console.log('Registering with data...', { name, selectedGoal, selectedGender });
     };
 
