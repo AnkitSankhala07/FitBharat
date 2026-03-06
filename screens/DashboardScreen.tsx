@@ -146,19 +146,31 @@ export const DashboardScreen = () => {
                             </View>
                             <Text style={styles.quickLbl}>Log Workout</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.quickCard} activeOpacity={0.7}>
+                        <TouchableOpacity
+                            style={styles.quickCard}
+                            activeOpacity={0.7}
+                            onPress={() => navigation.navigate('LogMeal')}
+                        >
                             <View style={[styles.quickIconContainer, { backgroundColor: '#FEF2F2' }]}>
                                 <Text style={styles.quickIcon}>🥗</Text>
                             </View>
                             <Text style={styles.quickLbl}>Log Meal</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.quickCard} activeOpacity={0.7}>
+                        <TouchableOpacity
+                            style={styles.quickCard}
+                            activeOpacity={0.7}
+                            onPress={() => navigation.navigate('Sleep')}
+                        >
                             <View style={[styles.quickIconContainer, { backgroundColor: '#F5F3FF' }]}>
                                 <Text style={styles.quickIcon}>😴</Text>
                             </View>
                             <Text style={styles.quickLbl}>Log Sleep</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.quickCard} activeOpacity={0.7}>
+                        <TouchableOpacity
+                            style={styles.quickCard}
+                            activeOpacity={0.7}
+                            onPress={() => navigation.navigate('BMI')}
+                        >
                             <View style={[styles.quickIconContainer, { backgroundColor: '#FFF7ED' }]}>
                                 <Text style={styles.quickIcon}>📊</Text>
                             </View>

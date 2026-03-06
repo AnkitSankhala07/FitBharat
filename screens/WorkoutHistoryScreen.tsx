@@ -65,26 +65,32 @@ export const WorkoutHistoryScreen = () => {
 
     // Component to render the main Workout Card
     const renderWorkoutCard = ({ item }: { item: Workout }) => (
-        <View style={styles.card}>
-            <View style={styles.cardHeader}>
-                <View>
-                    <Text style={styles.cardTitle}>{item.title}</Text>
-                    <Text style={styles.cardDate}>{item.date}</Text>
+        <TouchableOpacity
+            onPress={() => navigation.navigate('WorkoutAnalysis')}
+            activeOpacity={0.8}
+            style={styles.cardWrapper}
+        >
+            <View style={styles.card}>
+                <View style={styles.cardHeader}>
+                    <View>
+                        <Text style={styles.cardTitle}>{item.title}</Text>
+                        <Text style={styles.cardDate}>{item.date}</Text>
+                    </View>
+                    <TouchableOpacity
+                        style={styles.deleteBtn}
+                        onPress={() => handleDelete(item.id)}
+                    >
+                        <Text style={styles.deleteBtnText}>Delete</Text>
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                    style={styles.deleteBtn}
-                    onPress={() => handleDelete(item.id)}
-                >
-                    <Text style={styles.deleteBtnText}>Delete</Text>
-                </TouchableOpacity>
-            </View>
 
-            <View style={styles.divider} />
+                <View style={styles.divider} />
 
-            <View style={styles.exercisesList}>
-                {item.exercises.map(renderExercise)}
+                <View style={styles.exercisesList}>
+                    {item.exercises.map(renderExercise)}
+                </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 
     return (
@@ -165,11 +171,13 @@ const styles = StyleSheet.create({
     },
 
     // Card Styles
+    cardWrapper: {
+        marginBottom: 16,
+    },
     card: {
         backgroundColor: colors.white,
         borderRadius: 20,
-        padding: 18,
-        marginBottom: 16,
+        padding: 16,
         // Shadow Implementation
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 6 },
@@ -194,7 +202,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     deleteBtn: {
-        backgroundColor: 'rgba(2ef, 68, 68, 0.1)', // Light Red Background
+        backgroundColor: 'rgba(239, 68, 68, 0.1)', // Fixed the hex typo here
         paddingHorizontal: 10,
         paddingVertical: 6,
         borderRadius: 8,
