@@ -15,6 +15,7 @@ import { LogMealScreen } from './screens/LogMealScreen';
 import { BMIScreen } from './screens/BMIScreen';
 import { SleepScreen } from './screens/SleepScreen';
 import { ProfileScreen } from './screens/ProfileScreen';
+import { AdminScreen } from './screens/AdminScreen';
 import { BottomNavigation } from './components/BottomNavigation';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -50,6 +51,7 @@ export default function App() {
                 <Stack.Screen name="LogMeal" component={LogMealScreen} />
                 <Stack.Screen name="BMI" component={BMIScreen} />
                 <Stack.Screen name="Sleep" component={SleepScreen} />
+                <Stack.Screen name="Admin" component={AdminScreen} />
                 <Stack.Screen name="WorkoutAnalysis" component={WorkoutAnalysisScreen} />
                 <Stack.Screen name="Main" component={TabNavigator} />
             </Stack.Navigator>
