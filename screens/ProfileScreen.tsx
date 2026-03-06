@@ -119,6 +119,13 @@ export const ProfileScreen = () => {
                         </TouchableOpacity>
 
                         <TouchableOpacity
+                            style={styles.adminBtn}
+                            onPress={() => navigation.navigate('Admin')}
+                        >
+                            <Text style={styles.adminBtnText}>Admin Dashboard</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
                             style={styles.logoutBtn}
                             onPress={() => navigation.navigate('Login')}
                         >
@@ -284,6 +291,19 @@ const styles = StyleSheet.create({
     },
     editBtnText: {
         color: colors.white,
+        fontSize: 16,
+        fontWeight: '800',
+    },
+    adminBtn: {
+        backgroundColor: colors.white,
+        paddingVertical: 18,
+        borderRadius: 20,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: colors.border,
+    },
+    adminBtnText: {
+        color: colors.primary,
         fontSize: 16,
         fontWeight: '800',
     },
